@@ -1,0 +1,486 @@
+[
+  {
+    "id": "art-direction",
+    "title": "Art Direction Without Generic UI",
+    "category": "Frontend Design",
+    "whenToUse": "New marketing pages, portfolios, product landing pages, or visual redesigns where a recognizable aesthetic matters.",
+    "prerequisites": [
+      "Know the subject, primary audience, one page goal, and existing brand constraints.",
+      "Read current design tokens and brand guidance before proposing replacements."
+    ],
+    "workflow": [
+      "Write a one-sentence visual thesis anchored to the product's world, audience, and content.",
+      "Explore at least two compositions that differ structurally—not only in accent color. Compare content order, image strategy, type character, density, and signature motif.",
+      "Choose 4–6 semantic colors, display/body/utility type roles, spacing rhythm, and one memorable signature detail. Explain why each choice fits.",
+      "Compose the hero around the strongest truthful proof: product interface, concrete benefit, relevant visual, or a sharply stated idea.",
+      "Build a complete page with realistic content, responsive sections, accessible controls, and a consistent token system.",
+      "Run a visual critique pass: remove unearned gradients, random labels, redundant cards, generic stock-like imagery, and any element that does not help comprehension or identity."
+    ],
+    "hardRules": [
+      "Do not choose a trendy style just because it is familiar to the model.",
+      "Do not ban stylistic tools universally; evaluate whether each belongs to this specific brief.",
+      "Do not fabricate product screenshots, metrics, customer logos, reviews, or outcomes.",
+      "One strong signature element is usually better than many competing effects."
+    ],
+    "acceptance": [
+      "The intended audience and primary action are clear at first glance.",
+      "The chosen visual direction has a concise rationale tied to the actual brief.",
+      "Typography, composition and content remain coherent at narrow widths.",
+      "The result includes visible focus, keyboard support, semantic controls, and a reduced-motion path."
+    ],
+    "sources": [
+      "Frontend Design skill",
+      "Frontend Design Premium design-context and verification guidance",
+      "TubeAlfred research: https://www.youtube.com/watch?v=jT5YdajTg6I"
+    ]
+  },
+  {
+    "id": "dashboard-production-contract",
+    "title": "Production Dashboard UX Contract",
+    "category": "Product UX & Design Systems",
+    "whenToUse": "SaaS/admin dashboards, CRUD screens, settings apps, and any product with repeated workflows or destructive actions.",
+    "prerequisites": [
+      "Inspect DESIGN.md, UX-CONTRACT.md or equivalents; inspect current shared UI primitives and at least one sibling workflow.",
+      "Confirm authoritative API, permission and business rules."
+    ],
+    "workflow": [
+      "Classify this route as product/admin versus marketing/content; do not force application contracts onto static pages.",
+      "Resolve canonical owners for field validation, toast/live region, dialogs, navigation, tables, date/select controls and scroll surfaces.",
+      "For each operation, map trigger → pending state → success destination → feedback → failure recovery → focus outcome.",
+      "Define default, hover, focus-visible, pressed, selected, disabled, busy, success, warning, error, empty, stale, conflict and permission-changed states as applicable.",
+      "Document visual intent in DESIGN.md and behavior in UX-CONTRACT.md only when durable product scope justifies them.",
+      "Exercise keyboard, mobile, zoom, error, retry, stale response and permission-revocation behavior; fix shared root causes first."
+    ],
+    "hardRules": [
+      "UI hiding is not authorization.",
+      "Never silently discard user input or stale filters/sort/page state.",
+      "Do not duplicate established behavior in a screen-local component.",
+      "Do not claim the static audit proves browser interaction or CRUD correctness."
+    ],
+    "acceptance": [
+      "Repeated components have canonical owners.",
+      "Form and destructive-action failure recovery is explicit.",
+      "The user can always tell what was saved and where an action leads.",
+      "Commands and runtime checks actually run, and results are reported exactly."
+    ],
+    "sources": [
+      "Frontend Design Premium: interaction contract, async resilience, canonical UI resolution and verification checklist"
+    ]
+  },
+  {
+    "id": "motion-choreography",
+    "title": "Intentional Motion Choreography",
+    "category": "Motion & Interaction",
+    "whenToUse": "Landing page entrances, dashboard transitions, scroll reveals, shared elements, progressive disclosure, and delightful micro-interactions.",
+    "prerequisites": [
+      "Identify installed animation library and version; use Context7 for current API details.",
+      "Decide what motion communicates before writing an animation."
+    ],
+    "workflow": [
+      "Choose one motion purpose per interaction: orientation, hierarchy, cause-and-effect, progress, or delight.",
+      "Design a timing hierarchy: one lead movement, a short child stagger, then stillness. Define trigger, duration, easing and interruption rules.",
+      "Prefer opacity/transform; use layout animation only when the geometry change helps the user track continuity.",
+      "Keep content readable and the primary action available while motion runs. Do not gate route access behind decorative animation.",
+      "Implement reduced-motion alternatives at a shared configuration/token layer where the library supports it.",
+      "Test rapid state changes, interrupted navigation, slow devices, scrolling, resizing and keyboard focus."
+    ],
+    "hardRules": [
+      "No fake progress bars.",
+      "No scroll hijacking.",
+      "No perpetual movement without a meaningful reason.",
+      "Do not remove useful state feedback for reduced-motion users."
+    ],
+    "acceptance": [
+      "Motion expresses a user-understandable transition.",
+      "The page does not shift unpredictably or block interaction.",
+      "Reduced-motion and no-hover behavior are usable.",
+      "The actual implementation uses current APIs for the installed version."
+    ],
+    "sources": [
+      "Context7 Motion documentation",
+      "Tailwind CSS reduced-motion docs",
+      "Frontend Design Premium accessibility guidance"
+    ]
+  },
+  {
+    "id": "motion-react-recipe",
+    "title": "React Motion Implementation Recipe",
+    "category": "Motion & Interaction",
+    "whenToUse": "React apps using Motion/Framer Motion for layout transitions, viewport reveals, shared elements, and gestures.",
+    "prerequisites": [
+      "Check package.json to distinguish `motion/react` from older `framer-motion` imports.",
+      "Resolve the installed library version in Context7."
+    ],
+    "workflow": [
+      "Define variants at the nearest shared level instead of scattering per-node transition props.",
+      "Use `whileInView`/viewport detection only for content that benefits from reveal and make one-shot behavior explicit.",
+      "Use stable keys and stable layout identities; scope shared-element IDs to avoid collisions.",
+      "Prefer a small number of properties and use transform/opacity for smooth motion.",
+      "Set reduced-motion behavior with the API supported by the installed version and preserve non-motion state cues.",
+      "Verify SSR/client boundaries, route unmount, list reorder, and preference changes."
+    ],
+    "hardRules": [
+      "Never assume old Framer Motion import paths still match the installed package.",
+      "Never key a persistent animated entity by array index when items can reorder.",
+      "Do not animate every paragraph or card just because the library makes it easy."
+    ],
+    "acceptance": [
+      "Imports compile under the installed package.",
+      "Animations survive list reorder without identity jumps.",
+      "Reduced motion is validated manually or in test.",
+      "Interaction can finish or be interrupted without stale UI."
+    ],
+    "sources": [
+      "Context7 Motion for React docs: https://motion.dev/docs/react-accessibility"
+    ]
+  },
+  {
+    "id": "discord-dashboard-foundation",
+    "title": "Discord Dashboard Foundation",
+    "category": "Discord Dashboards",
+    "whenToUse": "A server-specific Discord bot dashboard with multiple guilds, configuration modules, roles, commands, or analytics.",
+    "prerequisites": [
+      "Separate user login, Discord OAuth scopes, guild membership, bot installation and bot permissions.",
+      "Identify server-side authorization contract and secret storage strategy."
+    ],
+    "workflow": [
+      "Design a persistent active-guild context and a setup flow that checks bot installation and required permissions.",
+      "Group navigation by user tasks, not by backend implementation details. Keep global account/billing separate from guild settings.",
+      "Each setting needs an explicit owner, default, schema, server-side permission gate and persisted-save contract.",
+      "Prepare disconnected, no-guild, missing-bot, missing-permission, stale-config, rate-limited and save-failed states.",
+      "Use visible draft/saved/unsaved states; only show a live preview when it reflects the same normalized schema that is persisted.",
+      "Test guild switching during fetch/save, revoked access, retry/idempotency, and mobile navigation."
+    ],
+    "hardRules": [
+      "Never ship bot tokens to the browser.",
+      "Never trust a guild ID or role ID without checking access server-side.",
+      "Never invent statistics or claim config was saved without an API confirmation.",
+      "Never request broad permissions without mapping them to product features."
+    ],
+    "acceptance": [
+      "Active guild is obvious on every guild-scoped route.",
+      "The backend rechecks actor and bot permissions for every write.",
+      "All important settings have loading, success, failure and no-access states.",
+      "Rate limits and partial API failures are handled explicitly."
+    ],
+    "sources": [
+      "Frontend Design Premium interaction patterns",
+      "Discord official API docs to be checked through Context7/primary docs before code"
+    ]
+  },
+  {
+    "id": "discord-embed-builder",
+    "title": "Discord Embed Builder With Truthful Preview",
+    "category": "Discord Dashboards",
+    "whenToUse": "A builder for Discord embeds, buttons, select menus, welcome announcements, or interactive messages.",
+    "prerequisites": [
+      "Confirm the current Discord payload schema and limits through primary documentation.",
+      "Define whether preview renders a normalized local payload or a fetched Discord message."
+    ],
+    "workflow": [
+      "Model content fields and interactive components with typed schemas.",
+      "Validate required fields, string lengths, aggregate limits, URLs, colors and component constraints before enabling save/send.",
+      "Keep errors next to the affected control and provide a helpful counter for length-limited fields.",
+      "Render a preview from the same normalized payload used by the send API; sanitize rich text and never inject raw HTML.",
+      "Prevent duplicate sends and show server-confirmed status, message/link IDs only when actually returned.",
+      "Test empty content, limit edges, malformed URLs, permission denial, API rate limit and send failure."
+    ],
+    "hardRules": [
+      "Local preview is not proof that Discord accepted the message.",
+      "No raw HTML injection.",
+      "Do not silently truncate content without showing what changed."
+    ],
+    "acceptance": [
+      "Preview maps to payload semantics.",
+      "Boundary errors are clear and actionable.",
+      "The user can distinguish draft, validated, sending, sent and failed states."
+    ],
+    "sources": [
+      "Discord API documentation (verify exact current limits before implementation)"
+    ]
+  },
+  {
+    "id": "discord-leveling-settings",
+    "title": "Discord Leveling Configuration System",
+    "category": "Discord Dashboards",
+    "whenToUse": "XP rules, level-up messages, rank cards, leaderboards, rewards and manual XP administration.",
+    "prerequisites": [
+      "Define the authoritative XP formula, update cadence, persistence contract and ranking tie-breaker.",
+      "Define guild-scoped permissions for manual XP operations and role rewards."
+    ],
+    "workflow": [
+      "Use a settings overview with grouped modules rather than a wall of isolated commands.",
+      "Design XP curve/threshold controls with example values and explicit units; preview the progression at sample levels.",
+      "For role rewards, validate duplicate thresholds, missing roles and bot role hierarchy before save.",
+      "Make manual add/remove/reset actions explicit, permission-gated and auditable; confirm bulk/reset-all operations.",
+      "Render rank card and leaderboard previews from the same template/data schema used in production.",
+      "Test ties, zero/negative values, maximum values, missing avatars, removed users, stale rankings and failed role assignment."
+    ],
+    "hardRules": [
+      "Never expose a manual XP mutation without server-side permission checks.",
+      "Never claim rank/leaderboard data is live if it is cached or mock data.",
+      "Keep one source of truth for level, rank, total XP and progress calculations."
+    ],
+    "acceptance": [
+      "XP thresholds are deterministic and tested at boundaries.",
+      "Dangerous reset flows require deliberate confirmation.",
+      "Preview and production templates agree.",
+      "Failure does not leave stale rank/progress UI."
+    ],
+    "sources": [
+      "Frontend Design Premium interaction and async resilience guidance"
+    ]
+  },
+  {
+    "id": "context7-grounded-build",
+    "title": "Context7-Grounded Implementation",
+    "category": "Framework Documentation",
+    "whenToUse": "Any project using current libraries/frameworks, especially Next.js, React, Tailwind, Motion, Supabase, MCP, or Discord API integrations.",
+    "prerequisites": [
+      "Know the installed package name/version or be explicit that it is not yet known.",
+      "A reliable Context7 tool connection is available in the agent environment."
+    ],
+    "workflow": [
+      "Resolve the exact library with Context7; choose the official/high-reputation library ID when several matches exist.",
+      "Break the question into narrow independent concepts (e.g. App Router handler and auth) rather than one broad query.",
+      "Read docs snippets and note source URL, applicable version, server/client requirements and deprecations.",
+      "Write code in the project's established conventions; do not copy unrelated examples verbatim.",
+      "Run typecheck/build/tests; compare actual compiler errors with the API docs before iterating."
+    ],
+    "hardRules": [
+      "Never use a retrieved snippet as proof that the full project compiles.",
+      "Never claim package behavior when the relevant result did not cover it.",
+      "If Context7 is unavailable, say so and use official primary documentation instead."
+    ],
+    "acceptance": [
+      "Library ID/version fit package.json.",
+      "Important API assumptions have cited documentation.",
+      "The code is verified in the intended environment or labeled untested."
+    ],
+    "sources": [
+      "Context7 official docs: https://context7.com/docs/api-guide",
+      "Context7 Search API: https://context7.com/docs/search-api"
+    ]
+  },
+  {
+    "id": "tubealfred-research",
+    "title": "TubeAlfred Video Research to Engineering Notes",
+    "category": "Research & Design References",
+    "whenToUse": "When a video tutorial, walkthrough, creator comparison, or real-world build explanation can add useful context.",
+    "prerequisites": [
+      "A specific question that a video can answer.",
+      "A way to verify technical details against primary documentation."
+    ],
+    "workflow": [
+      "Search YouTube with specific product + concept + intended outcome terms.",
+      "Screen publication date, author/channel, topic fit, and whether the video appears educational versus promotional.",
+      "Fetch metadata or transcript for only the most relevant few results.",
+      "Extract original, concise steps, design tradeoffs, and failure modes; mark transcript uncertainty for exact identifiers or code.",
+      "Check package syntax, API limits, security and versioned behavior against official docs such as Context7 results.",
+      "Store the original video URL plus summary and a confidence label in the research note."
+    ],
+    "hardRules": [
+      "Don't copy transcript passages or present the creator's words as yours.",
+      "Views and likes are not technical proof.",
+      "Don't use a video as the only source for security-sensitive or version-sensitive implementation."
+    ],
+    "acceptance": [
+      "The note answers the specific research question.",
+      "Technical claims are cross-checked.",
+      "Links, dates and unresolved uncertainty are preserved."
+    ],
+    "sources": [
+      "TubeAlfred YouTube search/transcript tools",
+      "Example research method source: https://www.youtube.com/watch?v=jT5YdajTg6I"
+    ]
+  },
+  {
+    "id": "superdesign-canvas-workflow",
+    "title": "Superdesign Canvas Workflow",
+    "category": "Research & Design References",
+    "whenToUse": "When using Superdesign to explore a new UI, reproduce an existing page, compare directions, or iterate a design before coding.",
+    "prerequisites": [
+      "Superdesign CLI preflight must run successfully and authentication state must be known.",
+      "For an existing codebase, required repo initialization and design-context artifacts must be complete before generation."
+    ],
+    "workflow": [
+      "Run the documented CLI preflight and inspect its auth/project output.",
+      "Classify the target: existing rendered UI, new target in existing codebase, or brand-new project.",
+      "For a real codebase, initialize and inspect the current design context; do not generate before the init gate completes.",
+      "Create a design brief with subject, audience, primary task, existing constraints, reference scope, and one signature element.",
+      "Generate independent structural variants only when comparison is useful; use iteration mode to refine a chosen direction.",
+      "Read actual canvas/preview URLs from tool output and wait for user approval before implementation unless the user explicitly says to skip design."
+    ],
+    "hardRules": [
+      "Never fabricate project, draft, node or canvas identifiers.",
+      "Do not run design-generation commands before required initialization.",
+      "If CLI is not available, disclose it and do not claim a canvas was created."
+    ],
+    "acceptance": [
+      "The correct target workflow was selected.",
+      "The chosen visual direction has a clear rationale.",
+      "The user receives a real canvas URL only if the command returned one."
+    ],
+    "sources": [
+      "Installed Superdesign skill and its workflow references"
+    ]
+  },
+  {
+    "id": "superpowers-engineering-loop",
+    "title": "Superpowers Engineering Loop",
+    "category": "Engineering Workflow",
+    "whenToUse": "Multi-step code changes, tricky bugs, new integrations, security-sensitive work, or reusable feature systems.",
+    "prerequisites": [
+      "An outcome and acceptance criteria are known.",
+      "A shell/test environment or an honest limitation statement is available."
+    ],
+    "workflow": [
+      "Brainstorm enough to settle user goals, constraints and meaningful design alternatives.",
+      "Write a stepwise plan with exact paths, interfaces, and commands/tests.",
+      "For behavior, follow red → green → refactor: demonstrate the failing test before the fix.",
+      "Implement the smallest coherent slice; split tasks by independent interfaces when parallelism actually helps.",
+      "Review specification compliance first, then code quality and maintainability.",
+      "Run verification commands and record observed output; do not infer success from intent."
+    ],
+    "hardRules": [
+      "Do not write a large speculative diff before settling the design.",
+      "Do not skip a red test step and still call the work TDD.",
+      "Do not claim commands ran unless their results were observed."
+    ],
+    "acceptance": [
+      "Plan tasks are executable and testable.",
+      "Regression behavior is covered by evidence.",
+      "Code matches the plan and is reviewed.",
+      "Final status separates completed, unverified and blocked items."
+    ],
+    "sources": [
+      "Superpowers repository and methodology: https://github.com/obra/superpowers"
+    ]
+  },
+  {
+    "id": "mcp-tool-contracts",
+    "title": "MCP Tool Contracts and Safety",
+    "category": "Vercel & Delivery",
+    "whenToUse": "Adding a tool to a remote MCP server, defining its input schema, exposing repository actions or integrating third-party APIs.",
+    "prerequisites": [
+      "Know the MCP transport and SDK version.",
+      "Classify the tool as read-only, write, privileged or destructive."
+    ],
+    "workflow": [
+      "Give each tool one focused capability with clear title, description, input schema and structured output.",
+      "Validate untrusted inputs server-side and enforce authorization where the action is performed.",
+      "Return actionable, bounded results; distinguish empty/not-found, validation errors and upstream failures.",
+      "Make write tools idempotent when possible and require explicit confirmation for irreversible operations.",
+      "Test initialize, list tools, invalid params, normal success, upstream error, timeout and authorization-denied scenarios.",
+      "Document which connected MCP/provider supplies external deployment or code-editing actions."
+    ],
+    "hardRules": [
+      "A public unauthenticated server must not expose private-data reads or privileged mutations.",
+      "Do not imply that a plan-generating tool has edited code or deployed an app.",
+      "Never pass secrets back in tool results or logs."
+    ],
+    "acceptance": [
+      "Schema rejects malformed inputs.",
+      "Tool behavior matches its description.",
+      "Access controls exist at the action boundary.",
+      "A real protocol handshake and representative tool call are tested."
+    ],
+    "sources": [
+      "MCP and Vercel deployment guidance; verify exact SDK API through Context7"
+    ]
+  },
+  {
+    "id": "accessible-interaction-audit",
+    "title": "Accessible Interaction Audit",
+    "category": "Quality & Optimization",
+    "whenToUse": "Before release or after changing buttons, navigation, dialog, forms, tables, responsive controls or animation.",
+    "prerequisites": [
+      "Know target browsers and relevant accessibility requirements.",
+      "Have access to the rendered page where possible."
+    ],
+    "workflow": [
+      "Exercise every action with keyboard only; confirm visible focus and predictable order.",
+      "Check semantic button/link/control roles and accessible names; ensure invalid fields reference visible errors.",
+      "Inspect contrast, text zoom/reflow, touch target size and whether sticky UI obscures focus.",
+      "Test dialog open/close, focus trap/restoration, Escape behavior and nested interactions.",
+      "Enable reduced motion and check that state cues and functionality remain.",
+      "Separate static findings from runtime checks and report repro steps with severity."
+    ],
+    "hardRules": [
+      "No clickable div/span when a real button/link fits.",
+      "No color-only status or icon-only unlabeled controls.",
+      "No inaccessible drag-only interaction without an alternative."
+    ],
+    "acceptance": [
+      "Keyboard-only path completes core task.",
+      "Focus, names, errors and contrast are checked.",
+      "Reduced-motion and narrow layouts remain functional.",
+      "Findings map to observable evidence."
+    ],
+    "sources": [
+      "Frontend Design Premium interaction contract and verification checklist"
+    ]
+  },
+  {
+    "id": "research-evidence-ledger",
+    "title": "Research Evidence Ledger",
+    "category": "Research & Design References",
+    "whenToUse": "Cross-source research, design-system decisions, package/version decisions, and recommendations that may be stale.",
+    "prerequisites": [
+      "A concrete question and candidate sources."
+    ],
+    "workflow": [
+      "Split opinion, design inspiration and technical facts into separate claim types.",
+      "Use primary docs for APIs, official product docs for product capabilities, Context7 for versioned library evidence, and TubeAlfred for tutorial context.",
+      "Record the publication/update date when recency matters and prefer evidence matching the requested timeframe.",
+      "Keep contradictory evidence visible and state which source is authoritative for which claim.",
+      "Attach confidence and an explicit follow-up test for unresolved questions."
+    ],
+    "hardRules": [
+      "Don't cite a video for API truth when current docs are available.",
+      "Don't hide uncertainty or infer a missing version.",
+      "Don't turn a popularity signal into proof."
+    ],
+    "acceptance": [
+      "Each material claim can be traced to evidence.",
+      "Freshness and version are preserved.",
+      "Uncertainty and unresolved conflicts are visible."
+    ],
+    "sources": [
+      "Context7 official research documentation",
+      "TubeAlfred source discovery"
+    ]
+  },
+  {
+    "id": "skill-authoring-quality",
+    "title": "Author High-Signal Agent Skills",
+    "category": "Engineering Workflow",
+    "whenToUse": "Creating, expanding, or revising a reusable skill catalogue or agent instruction set.",
+    "prerequisites": [
+      "A clearly bounded skill trigger and user outcome.",
+      "A plan for evaluating whether the skill changes output quality."
+    ],
+    "workflow": [
+      "Choose a precise title, trigger condition, and outcome; avoid skills that restate 'do good work'.",
+      "Write a workflow with specific decisions, artifacts, ordering and failure paths.",
+      "Include anti-patterns and boundary cases, not just aspirational principles.",
+      "Define observable acceptance checks plus explicit conditions that should stop or escalate the task.",
+      "Separate stable principles from versioned API facts; direct agents to Context7/primary docs for current syntax.",
+      "Test on at least two representative prompts and one adversarial or edge-case prompt; revise when the skill produces generic or contradictory behavior."
+    ],
+    "hardRules": [
+      "Do not count thin topic labels as equivalent to high-quality skills.",
+      "Do not clone third-party skill text; synthesize reusable original instructions and preserve source attribution.",
+      "Do not claim evaluation passed without running examples."
+    ],
+    "acceptance": [
+      "Skill contains trigger, workflow, guardrails, outputs and checks.",
+      "Its guidance is specialized and not interchangeable with sibling skills.",
+      "Its behavior can be evaluated with concrete test prompts."
+    ],
+    "sources": [
+      "Superpowers writing-skills methodology concepts",
+      "Frontend Design Premium structure and evidence-first verification"
+    ]
+  }
+]
